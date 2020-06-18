@@ -2280,7 +2280,7 @@ if ( typeof module != 'undefined' && module.exports ) {
                 var scrollHeight = fp_utils.getWindowHeight();
                 var contentHeightWidthPaddings = contentHeight + paddings;
                 var scrollHeightWidthoutPaddings = scrollHeight - paddings;
-                
+
                 //needs scroll?
                 if ( contentHeightWidthPaddings > scrollHeight) {
                     //did we already have an scrollbar ? Updating it
@@ -2409,9 +2409,12 @@ if ( typeof module != 'undefined' && module.exports ) {
                 if(!iscrollHandler.hasBeenInit){
                     return;
                 }
-                var scrollable = fp_utils.closest(target, SCROLLABLE_SEL) || $(SCROLLABLE_SEL, target)[0];
+                var scrollable = false;
+                if($(SCROLLABLE_SEL, target)){
+                  scrollable = fp_utils.closest(target, SCROLLABLE_SEL) || $(SCROLLABLE_SEL, target)[0];
+                }
                 var action = enable ? 'enable' : 'disable';
-                
+
                 if(scrollable){
                     scrollable.fp_iscrollInstance[action]();
                 }
@@ -2483,9 +2486,9 @@ if ( typeof module != 'undefined' && module.exports ) {
                     return true;
                 }
 
-                // two times reporting the same Y position ? 
+                // two times reporting the same Y position ?
                 // that means we are on the top or on the bottom of the scroller
-                
+
                 if (type === 'top'){
                     return scroller.y >= 0 && !fp_utils.getScrollTop(scrollable);
                 } else if (type === 'bottom') {
